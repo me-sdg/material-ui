@@ -12,9 +12,16 @@ import Tab from '@mui/material/Tab';
 import { Link } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useMediaQuery, SwipeableDrawer, IconButton } from '@mui/material';
+import { useMediaQuery, IconButton } from '@mui/material';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useTheme } from '@emotion/react';
 import MenuIcon from '@mui/icons-material/Menu';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import logo from '../../assets/images/logo.svg';
 
 function ElevationScroll(props) {
@@ -240,11 +247,24 @@ export default function Header() {
       <SwipeableDrawer
         disableBackdropTransition={!iOS}
         disableDiscovery={iOS}
-        open='openDrawer'
+        open={openDrawer}
         onOpen={() => setOpenDrawer(true)}
         onClose={() => setOpenDrawer(false)}
       >
-        Drawer
+        <List disablePadding>
+          <ListItem component={Link} to='/'>
+            <ListItemText disableTypography>Home</ListItemText>
+          </ListItem>
+          <ListItem component={Link} to='/services'>
+            <ListItemText>Services</ListItemText>
+          </ListItem>
+          <ListItem component={Link} to='/about'>
+            <ListItemText>About us</ListItemText>
+          </ListItem>
+          <ListItem component={Link} to='/contact'>
+            <ListItemText>Contact us</ListItemText>
+          </ListItem>
+        </List>
       </SwipeableDrawer>
       <IconButton onClick={() => setOpenDrawer(!openDrawer)} disableRipple>
         <MenuIcon />
