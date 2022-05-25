@@ -1,5 +1,4 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable no-unused-vars */
+/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -17,10 +16,7 @@ import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useTheme } from '@emotion/react';
 import MenuIcon from '@mui/icons-material/Menu';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import logo from '../../assets/images/logo.svg';
 
@@ -85,6 +81,27 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     fontSize: 13,
   },
+  drawer: {
+    backgroundColor: theme.palette.common.arcBlue,
+  },
+  drawerItem: {
+    color: '#fff',
+    opacity: 0.65,
+  },
+  drawerItemSelected: {
+    "&  .MuiListItemText-root":{
+      opacity: 1,
+      color: '#fff',
+    },
+   
+   
+  },
+  drawerItemContact: {
+    background: theme.palette.common.arcOrange,
+  },
+  appbar: {
+    zIndex: '9999 !important',
+  },
 }));
 
 export default function Header() {
@@ -104,16 +121,31 @@ export default function Header() {
     setAnchorEl(e.currentTarget);
     setOpenMenu(true);
   };
-  const handleClose = (e) => {
+  const handleClose = () => {
     setAnchorEl(null);
     setOpenMenu(false);
   };
 
   const menuOptions = [
-    { id: 0, name: 'services', link: '/services' },
-    { id: 1, name: 'sub menu 1', link: '/submenu1' },
-    { id: 2, name: 'sub menu 2', link: '/submenu2' },
-    { id: 3, name: 'sub menu 3', link: '/submenu3' },
+    { id: 0, name: 'services', link: '/services', activeIndex: 1, selectedIndex: 0 },
+    { id: 1, name: 'sub menu 1', link: '/submenu1', activeIndex: 1, selectedIndex: 1 },
+    { id: 2, name: 'sub menu 2', link: '/submenu2', activeIndex: 1, selectedIndex: 2 },
+    { id: 3, name: 'sub menu 3', link: '/submenu3', activeIndex: 1, selectedIndex: 3 },
+  ];
+
+  const routes = [
+    { id: 0, name: 'Home', link: '/', activeIndex: 0 },
+    {
+      id: 1,
+      name: 'Services',
+      link: '/services',
+      activeIndex: 1,
+      ariaOwns: anchorEl ? 'basic-menu' : undefined,
+      ariaPopup: anchorEl ? 'true' : undefined,
+      mouseOver: (event) => handleClick(event),
+    },
+    { id: 2, name: 'About us', link: '/about', activeIndex: 2 },
+    { id: 3, name: 'Contact us', link: '/contact', activeIndex: 3 },
   ];
 
   const handleMenuItemClick = (e, i) => {
@@ -122,22 +154,21 @@ export default function Header() {
     setSelectedIndex(i);
   };
   useEffect(() => {
-    if (window.location.pathname === '/' && value !== 0) {
-      setValue(0);
-    } else if (window.location.pathname === '/services' && value !== 1) {
-      setValue(1);
-    } else if (
-      window.location.pathname === '/submenu1' ||
-      window.location.pathname === '/submenu2' ||
-      (window.location.pathname === '/submenu3' && value !== 1)
-    ) {
-      setValue(1);
-    } else if (window.location.pathname === '/about' && value !== 2) {
-      setValue(2);
-    } else if (window.location.pathname === '/contact' && value !== 3) {
-      setValue(3);
-    }
-  }, [value]);
+    [...menuOptions, ...routes].forEach((route) => {
+      switch (window.location.pathname) {
+        case `${route.link}`:
+          if (value !== route.activeIndex) {
+            setValue(route.activeIndex);
+            if (route.selectedIndex && route.selectedIndex !== selectedIndex) {
+              setSelectedIndex(route.selectedIndex);
+            }
+          }
+          break;
+        default:
+          break;
+      }
+    });
+  }, [value, menuOptions, selectedIndex, routes]);
 
   const tabs = (
     <>
@@ -147,19 +178,18 @@ export default function Header() {
         className={classes.navItems}
         indicatorColor='secondary'
       >
-        <Tab label='Home' to='/' component={Link} className={classes.linkItem} />
-        <Tab
-          aria-owns={anchorEl ? 'basic-menu' : undefined}
-          aria-haspopup={anchorEl ? 'true' : undefined}
-          label='Services'
-          to='/services'
-          component={Link}
-          className={classes.linkItem}
-          // onClick={(event) => handleClick(event)}
-          onMouseOver={(event) => handleClick(event)}
-        />
-        <Tab label='About Us' to='/about' component={Link} className={classes.linkItem} />
-        <Tab label='Contact Us' to='/contact' component={Link} className={classes.linkItem} />
+        {routes.map((route) => (
+          <Tab
+            key={route.id}
+            className={classes.linkItem}
+            component={Link}
+            to={route.link}
+            label={route.name}
+            aria-owns={route.ariaOwns}
+            aria-haspopup={route.ariaPopup}
+            onMouseOver={route.mouseOver}
+          />
+        ))}
       </Tabs>
       <Button color='secondary' variant='contained' className={classes.btn}>
         Login
@@ -171,57 +201,13 @@ export default function Header() {
         open={openMenu}
         onClose={handleClose}
         classes={{ paper: classes.menu }}
+        style={{zIndex:9999}}
+        keepMounted
         MenuListProps={{
           'aria-labelledby': 'basic-button',
           onMouseLeave: handleClose,
         }}
       >
-        {/* <MenuItem
-                classes={{ root: classes.menuItem }}
-                onClick={() => {
-                  handleClose();
-                  setValue(1);
-                }}
-                component={Link}
-                to='/services'
-              >
-                Services
-              </MenuItem>
-              <MenuItem
-                classes={{ root: classes.menuItem }}
-                onClick={() => {
-                  handleClose();
-                  setValue(1);
-                }}
-                component={Link}
-                to='/submenu1'
-              >
-                sub menu 1
-              </MenuItem>
-              <MenuItem
-                classes={{ root: classes.menuItem }}
-                onClick={() => {
-                  handleClose();
-                  setValue(1);
-                }}
-                component={Link}
-                to='/submenu2'
-              >
-                sub menu 2
-              </MenuItem>
-              <MenuItem
-                classes={{ root: classes.menuItem }}
-                onClick={() => {
-                  handleClose();
-                  setValue(1);
-                }}
-                component={Link}
-                to='/submenu3'
-              >
-                sub menu 3
-              </MenuItem>
-
-               */}
         {menuOptions.map((option, i) => (
           <MenuItem
             onClick={(event) => {
@@ -250,19 +236,50 @@ export default function Header() {
         open={openDrawer}
         onOpen={() => setOpenDrawer(true)}
         onClose={() => setOpenDrawer(false)}
+        classes={{ paper: classes.drawer }}
       >
+        <div className={classes.toolbar} />
         <List disablePadding>
-          <ListItem component={Link} to='/'>
-            <ListItemText disableTypography>Home</ListItemText>
-          </ListItem>
-          <ListItem component={Link} to='/services'>
-            <ListItemText>Services</ListItemText>
-          </ListItem>
-          <ListItem component={Link} to='/about'>
-            <ListItemText>About us</ListItemText>
-          </ListItem>
-          <ListItem component={Link} to='/contact'>
-            <ListItemText>Contact us</ListItemText>
+          {routes.map((route) => (
+            <ListItem
+              key={route.id}
+              divider
+              button
+              component={Link}
+              to={route.link}
+              selected={value === route.activeIndex}
+              classes={{selected: classes.drawerItemSelected}}
+              onClick={() => {
+                setOpenDrawer(false);
+                setValue(route.activeIndex);
+              }}
+            >
+              <ListItemText
+                className={classes.drawerItem}
+                disableTypography
+              >
+                {route.name}
+              </ListItemText>
+            </ListItem>
+          ))}
+
+          <ListItem
+            onClick={() => {
+              setOpenDrawer(false);
+              setValue(3);
+            }}
+            classes={{root: classes.drawerItemContact,selected: classes.drawerItemSelected}}
+            selected={value === 3}
+            divider
+            button
+            component={Link}
+            to='/contact'
+          >
+            <ListItemText
+              className={classes.drawerItem}
+            >
+              Contact us
+            </ListItemText>
           </ListItem>
         </List>
       </SwipeableDrawer>
@@ -275,7 +292,7 @@ export default function Header() {
   return (
     <>
       <ElevationScroll>
-        <AppBar position='static'>
+        <AppBar position='fixed' className={classes.appbar}>
           <Toolbar disableGutters className={classes.toolbar}>
             <Button
               component={Link}
