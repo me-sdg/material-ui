@@ -33,8 +33,10 @@ function ElevationScroll(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  body: {
-    padding: 0,
+
+
+  body: {    
+    padding: 0,    
     margin: 0,
   },
   btnStyle: {
