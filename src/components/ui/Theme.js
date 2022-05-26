@@ -11,13 +11,16 @@ export default createTheme({
       arcOrange: `${orange600}!important`,
     },
     secondary: {
-      main: `${blueGrey50}`,
+      main: `${blueGrey50}!important`,
     },
   },
   typography: {
     h2: {
-      color: 'red !important',
+      color: `${orange600}`,
       fontWeight: 600,
+      fontSize: '30px',
+      display: 'block',
+      marginBottom: '20px',
     },
     tab: {
       textTransform: 'none !important',

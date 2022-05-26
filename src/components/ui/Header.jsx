@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     height: 'auto',
     padding: '0 60px',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary,
+    },
   },
   logo: {
     height: '80px',
