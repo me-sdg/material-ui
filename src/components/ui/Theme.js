@@ -31,6 +31,9 @@ export default createTheme({
     subtitle1: {
       color: `${arcGrey}`,
     },
+    subtitle2: {
+      color: '#fff',
+    },
     tab: {
       textTransform: 'none !important',
     },

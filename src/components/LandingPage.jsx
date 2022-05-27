@@ -11,6 +11,7 @@ import customSoftwareIcon from '../assets/images/customSoftwareIcon.svg';
 import mobileIcon from '../assets/images/mobile.svg';
 import websiteIcon from '../assets/images/website.svg';
 import revolutionBackground from '../assets/images/repeatingBackground.svg';
+import infoBackground from '../assets/images/infoBackground.svg';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -79,6 +80,14 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
     },
   },
+  infoBackground: {
+    backgroundImage: `url(${infoBackground})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    height: '100%',
+    width: '100%',
+  },
 }));
 
 const LandingPage = () => {
@@ -139,11 +148,12 @@ const LandingPage = () => {
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>
-            <Typography variant='subtitle2'>
+            <Typography variant='subtitle1'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               <br /> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
               <span className={classes.specialText}>celebration</span>
             </Typography>
+            <br />
             <Button variant='outlined' className={classes.learnMoreBtn}>
               <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
               <ButtonArrow width={20} height={20} fill='violet' />
@@ -170,11 +180,12 @@ const LandingPage = () => {
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>
-            <Typography variant='subtitle2'>
+            <Typography variant='subtitle1'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               <br /> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
               <span className={classes.specialText}>celebration</span>
             </Typography>
+            <br />
             <Button variant='outlined' className={classes.learnMoreBtn}>
               <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
               <ButtonArrow width={20} height={20} fill='violet' />
@@ -201,11 +212,12 @@ const LandingPage = () => {
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>
-            <Typography variant='subtitle2'>
+            <Typography variant='subtitle1'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               <br /> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
               <span className={classes.specialText}>celebration</span>
             </Typography>
+            <br />
             <Button variant='outlined' className={classes.learnMoreBtn}>
               <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
               <ButtonArrow width={20} height={20} fill='violet' />
@@ -216,6 +228,8 @@ const LandingPage = () => {
           </Grid>
         </Grid>
       </Grid>
+      {/* -----revolution section ------ */}
+
       <Grid item>
         <Grid
           container
@@ -242,6 +256,75 @@ const LandingPage = () => {
             </CardContent>
           </Card>
           <div className={classes.revolutionBackground} />
+        </Grid>
+      </Grid>
+      {/* -----information section ------ */}
+      <Grid item>
+        <Grid container direction='row' alignItems='center' style={{ height: '50em' }}>
+          <Grid
+            container
+            style={{ position: 'absolute', textAlign: matchesSM ? 'center' : 'inherit' }}
+            direction={matchesSM ? 'column' : 'row'}
+          >
+            <Grid
+              item
+              sm
+              style={{
+                marginLeft: matchesSM ? '0' : '5em',
+                marginBottom: matchesSM ? '3em' : 'initial',
+              }}
+            >
+              <Grid container direction='column'>
+                <Typography variant='h2' style={{ color: 'white' }}>
+                  About Us
+                </Typography>
+                <Typography variant='subtitle2'>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  <br /> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </Typography>
+                <Grid item>
+                  <Button
+                    variant='outlined'
+                    className={classes.learnMoreBtn}
+                    style={{ borderColor: '#fff', color: '#fff' }}
+                  >
+                    <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
+                    <ButtonArrow width={20} height={20} fill='white' />
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              sm
+              style={{
+                marginRight: matchesSM ? '0' : '5em',
+                textAlign: matchesSM ? 'center' : 'right',
+              }}
+            >
+              <Grid container direction='column'>
+                <Typography variant='h2' style={{ color: 'white' }}>
+                  Contact Us
+                </Typography>
+                <Typography variant='subtitle2'>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  <br /> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </Typography>
+                <Grid item>
+                  <Button
+                    variant='outlined'
+                    className={classes.learnMoreBtn}
+                    style={{ borderColor: '#fff', color: '#fff' }}
+                  >
+                    <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
+                    <ButtonArrow width={20} height={20} fill='white' />
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <div className={classes.infoBackground} />
         </Grid>
       </Grid>
     </Grid>
