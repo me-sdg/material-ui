@@ -3,13 +3,14 @@ import Lottie from 'react-lottie';
 
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Card, CardContent } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import animationData from '../animations/landinganimation/data';
 import ButtonArrow from './ui/ButtonArrow';
 import customSoftwareIcon from '../assets/images/customSoftwareIcon.svg';
 import mobileIcon from '../assets/images/mobile.svg';
 import websiteIcon from '../assets/images/website.svg';
+import revolutionBackground from '../assets/images/repeatingBackground.svg';
 
 const useStyles = makeStyles((theme) => ({
   animation: {
@@ -57,6 +58,25 @@ const useStyles = makeStyles((theme) => ({
   learnMoreBtn: {
     [theme.breakpoints.down('sm')]: {
       margin: '10px 0 !important',
+    },
+  },
+  revolutionBackground: {
+    backgroundImage: `url(${revolutionBackground})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    height: '100%',
+    width: '100%',
+  },
+  revolutionCard: {
+    position: 'absolute',
+    boxShadow: '10px',
+    borderRadius: '15px !important',
+    padding: '5em 10em',
+    [theme.breakpoints.down('sm')]: {
+      padding: '3em 0 !important',
+      borderRadius: '0!important',
+      width: '100%',
     },
   },
 }));
@@ -194,6 +214,34 @@ const LandingPage = () => {
           <Grid item>
             <img src={websiteIcon} alt='' className={classes.boxIcon} />
           </Grid>
+        </Grid>
+      </Grid>
+      <Grid item>
+        <Grid
+          container
+          alignItems='center'
+          justifyContent='center'
+          style={{ height: '50em', marginTop: '10em' }}
+        >
+          <Card className={classes.revolutionCard}>
+            <CardContent>
+              <Grid container direction='column' style={{ textAlign: 'center' }}>
+                <Grid item>
+                  <Typography variant='h3'>The revolution</Typography>
+                </Grid>
+                <Grid item>
+                  <Typography variant='subtitle1'>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  </Typography>
+                  <Button variant='outlined'>
+                    <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
+                    <ButtonArrow width={20} height={20} fill='violet' />
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+          <div className={classes.revolutionBackground} />
         </Grid>
       </Grid>
     </Grid>
