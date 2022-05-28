@@ -7,6 +7,7 @@ import Header from './ui/Header';
 import Footer from './ui/Footer';
 import LandingPage from './LandingPage';
 import Services from './Services';
+import CustomSoftware from './CustomSoftware';
 import '../assets/css/styles.css';
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
           <Routes>
             <Route exact path='/' element={<LandingPage />} />
             <Route exact path='/services' element={<Services />} />
-            <Route exact path='/about' element={<div style={{ height: '900px' }}>About Us</div>} />
+            <Route exact path='/about' element={<CustomSoftware />} />
             <Route
               exact
               path='/contact'
