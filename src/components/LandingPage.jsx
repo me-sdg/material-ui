@@ -1,10 +1,10 @@
 /* eslint-disable object-shorthand */
-import Lottie from 'react-lottie';
-
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Card, CardContent } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Lottie from 'react-lottie';
+import CallToAction from './ui/CallToAction';
 import animationData from '../animations/landinganimation/data';
 import ButtonArrow from './ui/ButtonArrow';
 import customSoftwareIcon from '../assets/images/customSoftwareIcon.svg';
@@ -326,6 +326,10 @@ const LandingPage = () => {
 
           <div className={classes.infoBackground} />
         </Grid>
+      </Grid>
+      {/* -----call to action section ------ */}
+      <Grid item>
+        <CallToAction />
       </Grid>
     </Grid>
   );

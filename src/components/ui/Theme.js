@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { blueGrey, blue, orange } from '@mui/material/colors';
 
 const blueGrey50 = blueGrey[50];
-const darkBlue = blue[300];
+const darkBlue = blue[700];
 const orange600 = orange[600];
 const arcGrey = '#888';
 export default createTheme({
@@ -20,6 +20,13 @@ export default createTheme({
       color: `${orange600}`,
       fontWeight: 600,
       fontSize: '30px',
+      display: 'block',
+      marginBottom: '20px',
+    },
+    h3: {
+      color: `${darkBlue}`,
+      fontWeight: 600,
+      fontSize: '25px',
       display: 'block',
       marginBottom: '20px',
     },
