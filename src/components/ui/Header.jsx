@@ -33,10 +33,8 @@ function ElevationScroll(props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-
-
-  body: {    
-    padding: 0,    
+  body: {
+    padding: 0,
     margin: 0,
   },
   btnStyle: {
@@ -94,12 +92,10 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0.65,
   },
   drawerItemSelected: {
-    "&  .MuiListItemText-root":{
+    '&  .MuiListItemText-root': {
       opacity: 1,
       color: '#fff',
     },
-   
-   
   },
   drawerItemContact: {
     background: theme.palette.common.arcOrange,
@@ -116,6 +112,7 @@ export default function Header() {
   const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [value, setValue] = useState(0);
+  const [defaultVal, setDefaultVal] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -169,6 +166,9 @@ export default function Header() {
             }
           }
           break;
+        case '/estimate':
+          setDefaultVal(defaultVal);
+          break;
         default:
           break;
       }
@@ -196,8 +196,15 @@ export default function Header() {
           />
         ))}
       </Tabs>
-      <Button color='secondary' variant='contained' className={classes.btn}>
-        Login
+      <Button
+        component={Link}
+        to='/estimate'
+        color='secondary'
+        variant='contained'
+        className={classes.btn}
+        onClick={() => setDefaultVal(defaultVal)}
+      >
+        Free estimate
       </Button>
       <Menu
         elevation={5}
@@ -206,7 +213,7 @@ export default function Header() {
         open={openMenu}
         onClose={handleClose}
         classes={{ paper: classes.menu }}
-        style={{zIndex:9999}}
+        style={{ zIndex: 9999 }}
         keepMounted
         MenuListProps={{
           'aria-labelledby': 'basic-button',
@@ -253,16 +260,13 @@ export default function Header() {
               component={Link}
               to={route.link}
               selected={value === route.activeIndex}
-              classes={{selected: classes.drawerItemSelected}}
+              classes={{ selected: classes.drawerItemSelected }}
               onClick={() => {
                 setOpenDrawer(false);
                 setValue(route.activeIndex);
               }}
             >
-              <ListItemText
-                className={classes.drawerItem}
-                disableTypography
-              >
+              <ListItemText className={classes.drawerItem} disableTypography>
                 {route.name}
               </ListItemText>
             </ListItem>
@@ -273,18 +277,14 @@ export default function Header() {
               setOpenDrawer(false);
               setValue(3);
             }}
-            classes={{root: classes.drawerItemContact,selected: classes.drawerItemSelected}}
+            classes={{ root: classes.drawerItemContact, selected: classes.drawerItemSelected }}
             selected={value === 3}
             divider
             button
             component={Link}
             to='/contact'
           >
-            <ListItemText
-              className={classes.drawerItem}
-            >
-              Contact us
-            </ListItemText>
+            <ListItemText className={classes.drawerItem}>Contact us</ListItemText>
           </ListItem>
         </List>
       </SwipeableDrawer>

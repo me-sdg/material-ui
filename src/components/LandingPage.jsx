@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Card, CardContent } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
+// import { Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import CallToAction from './ui/CallToAction';
 import animationData from '../animations/landinganimation/data';
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   buttonContainer: {
     marginTop: 10,
   },
+
   specialText: {
     fontStyle: 'italic',
     color: theme.palette.common.arcOrange,
