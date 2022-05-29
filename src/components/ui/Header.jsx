@@ -82,7 +82,8 @@ const useStyles = makeStyles((theme) => ({
   },
   menuItem: {
     fontWeight: 600,
-    fontSize: 13,
+    fontSize: '13px !important',
+    color: '#fff !important',
   },
   drawer: {
     backgroundColor: theme.palette.common.arcBlue,
@@ -130,7 +131,7 @@ export default function Header() {
 
   const menuOptions = [
     { id: 0, name: 'services', link: '/services', activeIndex: 1, selectedIndex: 0 },
-    { id: 1, name: 'sub menu 1', link: '/submenu1', activeIndex: 1, selectedIndex: 1 },
+    { id: 1, name: 'Custom Software', link: '/customSoftware', activeIndex: 1, selectedIndex: 1 },
     { id: 2, name: 'sub menu 2', link: '/submenu2', activeIndex: 1, selectedIndex: 2 },
     { id: 3, name: 'sub menu 3', link: '/submenu3', activeIndex: 1, selectedIndex: 3 },
   ];

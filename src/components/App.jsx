@@ -7,6 +7,8 @@ import Header from './ui/Header';
 import Footer from './ui/Footer';
 import LandingPage from './LandingPage';
 import Services from './Services';
+import About from './About';
+import Contact from './Contact';
 import CustomSoftware from './CustomSoftware';
 import '../assets/css/styles.css';
 
@@ -26,11 +28,38 @@ function App() {
           <Routes>
             <Route exact path='/' element={<LandingPage />} />
             <Route exact path='/services' element={<Services />} />
-            <Route exact path='/about' element={<CustomSoftware />} />
+            <Route
+              exact
+              path='/customSoftware'
+              element={
+                <CustomSoftware
+                  setSelecteIndex={setSelectedIndex}
+                  setValue={setValue}
+                  selectedIndex={selectedIndex}
+                />
+              }
+            />
+            <Route
+              exact
+              path='/about'
+              element={
+                <About
+                  setSelecteIndex={setSelectedIndex}
+                  setValue={setValue}
+                  selectedIndex={selectedIndex}
+                />
+              }
+            />
             <Route
               exact
               path='/contact'
-              element={<div style={{ height: '900px' }}>Contact Us</div>}
+              element={
+                <Contact
+                  setSelecteIndex={setSelectedIndex}
+                  setValue={setValue}
+                  selectedIndex={selectedIndex}
+                />
+              }
             />
             <Route
               exact
