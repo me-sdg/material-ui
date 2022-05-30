@@ -50,5 +50,12 @@ export default createTheme({
     tab: {
       textTransform: 'none !important',
     },
+    overrides: {
+      MuiInputLabel: {
+        root: {
+          color: '#009 !important',
+        },
+      },
+    },
   },
 });
