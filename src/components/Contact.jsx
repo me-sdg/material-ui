@@ -2,8 +2,19 @@
 import { useState } from 'react';
 import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
-import { Button, Typography, TextField, useMediaQuery, Dialog, DialogContent } from '@mui/material';
+import {
+  Button,
+  Typography,
+  TextField,
+  useMediaQuery,
+  Dialog,
+  DialogContent,
+  CircularProgress,
+  Snackbar,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Circle } from '@mui/icons-material';
 import background from '../assets/images/background.jpg';
 import phoneIcon from '../assets/images/phone.svg';
 import emailIcon from '../assets/images/email.svg';
@@ -37,6 +48,8 @@ const Contact = () => {
   const [phoneHelper, setPhoneHelper] = useState('');
   const [emailHelper, setEmailHelper] = useState('');
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({ open: false, message: '', backgroundColor: '' });
 
   const onChangeHandler = (e) => {
     let valid;
@@ -63,6 +76,25 @@ const Contact = () => {
       default:
         break;
     }
+  };
+
+  const onConfirm = () => {
+    setLoading(true);
+    axios
+      .get('https://jsonplaceholder.typicode.com/posts')
+      .then((res) => {
+        setLoading(false);
+        setOpen(false);
+        setName('');
+        setMessage('');
+        setEmail('');
+        setPhone('');
+        setAlert({ open: true, message: ' Message sent successfuly!', backgroundColor: 'green' });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setAlert({ open: true, message: 'Error!!!!', backgroundColor: 'red' });
+      });
   };
 
   return (
@@ -219,9 +251,36 @@ const Contact = () => {
             <Button color='primary' onClick={() => setOpen(false)}>
               Cancel
             </Button>
+            <Button
+              disabled={
+                name.length === 0 ||
+                message.length === 0 ||
+                phoneHelper.length !== 0 ||
+                emailHelper.length !== 0
+              }
+              variant='contained'
+              onClick={onConfirm}
+            >
+              {loading ? (
+                <CircularProgress size={25} color='secondary' />
+              ) : (
+                <span>
+                  Send Message <img src={airplane} alt='' />
+                </span>
+              )}
+            </Button>
           </Grid>
         </DialogContent>
       </Dialog>
+      <Snackbar
+        open={alert.open}
+        message={alert.message}
+        ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        setClose={() => setAlert({ ...alert, open: false })}
+        autoHideDuration={4000}
+      />
+
       <Grid
         item
         container
