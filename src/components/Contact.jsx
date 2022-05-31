@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Circle } from '@mui/icons-material';
 import background from '../assets/images/background.jpg';
 import phoneIcon from '../assets/images/phone.svg';
 import emailIcon from '../assets/images/email.svg';

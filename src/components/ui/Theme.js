@@ -35,6 +35,12 @@ export default createTheme({
       fontWeight: '600',
       color: `${darkBlue}`,
     },
+    h6: {
+      fontWeight: 600,
+      color: `${darkBlue}`,
+      lineHeight: '1em',
+      marginBottom: '1em',
+    },
     subtitle1: {
       color: `${arcGrey}`,
     },

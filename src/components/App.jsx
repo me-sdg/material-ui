@@ -10,6 +10,7 @@ import Services from './Services';
 import About from './About';
 import Contact from './Contact';
 import CustomSoftware from './CustomSoftware';
+import Estimate from './ui/Estimate';
 import '../assets/css/styles.css';
 
 function App() {
@@ -64,7 +65,13 @@ function App() {
             <Route
               exact
               path='/estimate'
-              element={<div style={{ height: '900px' }}>Free Estimate</div>}
+              element={
+                <Estimate
+                  setSelecteIndex={setSelectedIndex}
+                  setValue={setValue}
+                  selectedIndex={selectedIndex}
+                />
+              }
             />
             <Route
               exact
