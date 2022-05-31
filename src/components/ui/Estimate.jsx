@@ -5,6 +5,7 @@ import { makeStyles, useTheme } from '@mui/styles';
 import { cloneDeep } from 'lodash';
 import { useMediaQuery, IconButton, Typography, Button, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { blueGrey, blue, orange } from '@mui/material/colors';
 import check from '../../assets/images/check.svg';
 import send from '../../assets/images/send.svg';
 import software from '../../assets/images/software.svg';
@@ -344,6 +345,18 @@ const Estimate = () => {
     return false;
   };
 
+  const handleSelect = (id) => {
+    const newQuestions = cloneDeep(questions);
+    const currentlyActive = newQuestions.filter((q) => q.active);
+    const activeIndex = currentlyActive[0].id - 1;
+
+    const newSelected = newQuestions[activeIndex].options[id - 1];
+
+    newSelected.selected = !newSelected.selected;
+
+    setQuestions(newQuestions);
+  };
+
   return (
     <Grid container>
       <Grid container>
@@ -391,7 +404,19 @@ const Estimate = () => {
                   </Grid>
                   <Grid item container>
                     {q.options.map((q) => (
-                      <Grid item container direction='column' sm key={q.id}>
+                      <Grid
+                        item
+                        container
+                        direction='column'
+                        sm
+                        key={q.id}
+                        component={Button}
+                        onClick={() => handleSelect(q.id)}
+                        style={{
+                          display: 'grid',
+                          backgroundColor: q.selected ? blue[50] : null,
+                        }}
+                      >
                         <Grid item style={{ maxWidth: '12em' }}>
                           <Typography variant='h6' align='center'>
                             {q.title}
