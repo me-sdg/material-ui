@@ -3,11 +3,20 @@ import React, { useState } from 'react';
 import Lottie from 'react-lottie';
 import { makeStyles, useTheme } from '@mui/styles';
 import { cloneDeep } from 'lodash';
-import { useMediaQuery, IconButton, Typography, Button, Grid } from '@mui/material';
+import {
+  IconButton,
+  Typography,
+  Button,
+  Grid,
+  Dialog,
+  DialogContent,
+  TextField,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
-import { blueGrey, blue, orange } from '@mui/material/colors';
-import check from '../../assets/images/check.svg';
-import send from '../../assets/images/send.svg';
+import { blue } from '@mui/material/colors';
+// import check from '../../assets/images/check.svg';
+// import send from '../../assets/images/send.svg';
+
 import software from '../../assets/images/software.svg';
 import mobile from '../../assets/images/mobile.svg';
 import website from '../../assets/images/website.svg';
@@ -36,6 +45,14 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     width: '12em',
     height: '10em',
+  },
+  estimateButton: {
+    backgroundColor: theme.palette.common.arcOrange,
+    borderRadius: '50px !important',
+    marginRight: '10px !important',
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.light,
+    },
   },
 }));
 
@@ -300,7 +317,16 @@ const websiteQuestions = [
 const Estimate = () => {
   const classes = useStyles();
   const theme = useTheme();
-  const [questions, setQuestions] = useState(softwareQuestions);
+  const [questions, setQuestions] = useState(defaultQuestions);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [phoneHelper, setPhoneHelper] = useState('');
+  const [emailHelper, setEmailHelper] = useState('');
+  const [total, setTotal] = useState(0);
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -309,6 +335,17 @@ const Estimate = () => {
       preserveAspectRatio: 'xMidYMid slice',
     },
   };
+
+  const previousQuestion = () => {
+    const newQuestions = cloneDeep(questions);
+    const currentlyActive = newQuestions.filter((question) => question.active);
+    const activeIndex = currentlyActive[0].id - 1;
+    const nextIndex = activeIndex - 1;
+    newQuestions[activeIndex] = { ...currentlyActive[0], active: false };
+    newQuestions[nextIndex] = { ...newQuestions[nextIndex], active: true };
+    setQuestions(newQuestions);
+  };
+
   const nextQuestion = () => {
     const newQuestions = cloneDeep(questions);
     const currentlyActive = newQuestions.filter((q) => q.active);
@@ -316,15 +353,6 @@ const Estimate = () => {
     const nextIndex = activeIndex + 1;
     newQuestions[activeIndex] = { ...currentlyActive[0], active: false };
     newQuestions[nextIndex] = { ...newQuestions[nextIndex], active: true };
-    setQuestions(newQuestions);
-  };
-  const previousQuestion = () => {
-    const newQuestions = cloneDeep(questions);
-    const currentlyActive = newQuestions.filter((q) => q.active);
-    const activeIndex = currentlyActive[0].id - 1;
-    const nextIndex = activeIndex - 1;
-    newQuestions[activeIndex] = { ...currentlyActive[0], active: false };
-    newQuestions[nextIndex] = { ...newQuestions[activeIndex], active: true };
     setQuestions(newQuestions);
   };
 
@@ -347,14 +375,83 @@ const Estimate = () => {
 
   const handleSelect = (id) => {
     const newQuestions = cloneDeep(questions);
-    const currentlyActive = newQuestions.filter((q) => q.active);
+    const currentlyActive = newQuestions.filter((question) => question.active);
     const activeIndex = currentlyActive[0].id - 1;
 
     const newSelected = newQuestions[activeIndex].options[id - 1];
+    const previousSelected = currentlyActive[0].options.filter((option) => option.selected);
 
-    newSelected.selected = !newSelected.selected;
+    switch (currentlyActive[0].subtitle) {
+      case 'Select one.':
+        if (previousSelected[0]) {
+          previousSelected[0].selected = !previousSelected[0].selected;
+        }
+        newSelected.selected = !newSelected.selected;
+        break;
+      default:
+        newSelected.selected = !newSelected.selected;
+        break;
+    }
+    switch (newSelected.title) {
+      case 'Custom softWare Development':
+        setQuestions(softwareQuestions);
+        break;
+      case 'iOS/Android App Development':
+        setQuestions(softwareQuestions);
+        break;
+      case 'website Development':
+        setQuestions(websiteQuestions);
+        break;
+      default:
+        setQuestions(newQuestions);
+        break;
+    }
 
-    setQuestions(newQuestions);
+    // setQuestions(newQuestions);
+  };
+
+  const onChangeHandler = (e) => {
+    let valid;
+    switch (e.target.id) {
+      case 'email':
+        setEmail(e.target.value);
+        valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value);
+        if (!valid) {
+          setEmailHelper('Invalin email');
+        } else {
+          setEmailHelper('');
+        }
+        break;
+      case 'phone':
+        setPhone(e.target.value);
+        valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(e.target.value);
+        if (!valid) {
+          setPhoneHelper('Invalin number');
+        } else {
+          setPhoneHelper('');
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const getTotal = () => {
+    let cost = 0;
+    const selections = questions
+      .map((question) => question.options.filter((option) => option.selected))
+      .filter((question) => question.length > 0);
+    // eslint-disable-next-line no-return-assign
+    selections.map((options) => options.map((option) => (cost += option.cost)));
+    if (questions.length > 2) {
+      const userCost = questions
+        .filter((question) => question.title === 'How many users do you expect?')
+        .map((question) => question.options.filter((option) => option.selected))[0][0].cost;
+      cost -= userCost;
+      cost *= userCost;
+    }
+    setTotal(cost);
   };
 
   return (
@@ -381,9 +478,9 @@ const Estimate = () => {
             alignItems='center'
           >
             {questions
-              .filter((q) => q.active)
-              .map((q, i) => (
-                <React.Fragment key={q.id}>
+              .filter((question) => question.active)
+              .map((question, i) => (
+                <React.Fragment key={question.id}>
                   <Grid item>
                     <Typography
                       variant='h2'
@@ -391,7 +488,7 @@ const Estimate = () => {
                       style={{ fontWeight: '600', marginBottom: '2.5em', marginTop: '2.5em' }}
                       gutterBottom
                     >
-                      {q.title}
+                      {question.title}
                     </Typography>
                     <Typography
                       variant='body1'
@@ -399,34 +496,34 @@ const Estimate = () => {
                       style={{ marginBottom: '2.5em' }}
                       gutterBottom
                     >
-                      {q.subtitle}
+                      {question.subtitle}
                     </Typography>
                   </Grid>
                   <Grid item container>
-                    {q.options.map((q) => (
+                    {question.options.map((option) => (
                       <Grid
                         item
                         container
                         direction='column'
                         sm
-                        key={q.id}
+                        key={option.id}
                         component={Button}
-                        onClick={() => handleSelect(q.id)}
+                        onClick={() => handleSelect(option.id)}
                         style={{
                           display: 'grid',
-                          backgroundColor: q.selected ? blue[50] : null,
+                          backgroundColor: option.selected ? blue[50] : null,
                         }}
                       >
                         <Grid item style={{ maxWidth: '12em' }}>
                           <Typography variant='h6' align='center'>
-                            {q.title}
+                            {option.title}
                           </Typography>
                           <Typography variant='caption' align='center'>
-                            {q.subtitle}
+                            {option.subtitle}
                           </Typography>
                         </Grid>
                         <Grid>
-                          <img src={q.icon} alt={q.iconAlt} className={classes.icon} />
+                          <img src={option.icon} alt={option.iconAlt} className={classes.icon} />
                         </Grid>
                       </Grid>
                     ))}
@@ -469,10 +566,92 @@ const Estimate = () => {
                   Free estimate
                 </Button>
               </Grid>
+              <Button
+                className={classes.estimateButton}
+                style={{ marginRight: '0 !important', marginTop: '15px' }}
+                variant='contained'
+                onClick={() => {
+                  setDialogOpen(true);
+                  getTotal();
+                }}
+              >
+                Free estimate
+              </Button>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+        <Grid container justifyContent='center'>
+          <Grid item>
+            <Typography variant='h2' justifyContent='center'>
+              Estimate
+            </Typography>
+          </Grid>
+        </Grid>
+        <DialogContent>
+          <Grid container>
+            <Grid item container direction='column'>
+              <Grid item>
+                <TextField
+                  label='Name'
+                  id='name'
+                  variant='standard'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  label='Email'
+                  error={emailHelper.length !== 0}
+                  helperText={emailHelper}
+                  id='email'
+                  variant='standard'
+                  value={email}
+                  onChange={onChangeHandler}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label='Phone'
+                  id='phone'
+                  inputProps={{ maxLength: 10 }}
+                  error={phoneHelper.length !== 0}
+                  helperText={phoneHelper}
+                  variant='standard'
+                  value={phone}
+                  onChange={onChangeHandler}
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  value={message}
+                  multiline
+                  rows={10}
+                  id='message'
+                  onChange={(e) => setMessage(e.target.value)}
+                  className={classes.multiline}
+                />
+              </Grid>
+              <Grid item mt={3}>
+                <Typography variant='body1' paragraph>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.{' '}
+                  <strong>${total.toFixed(2)}</strong>
+                </Typography>
+                <Typography variant='body1' paragraph>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua.
+                </Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Grid>
   );
 };

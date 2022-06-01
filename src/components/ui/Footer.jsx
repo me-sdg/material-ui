@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 
 import { makeStyles } from '@mui/styles';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import footerAdornment from '../../assets/images/FooterAdornment.svg';
 
@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: theme.palette.common.arcBlue,
     width: '100%',
-    zIndex: 1302,
+    zIndex: 1299,
     position: 'relative',
   },
   mainContainer: {
@@ -31,9 +31,9 @@ const useStyles = makeStyles((theme) => ({
       width: '15em',
     },
   },
-  gridItem:{
-    margin:"3em !important"
-  }
+  gridItem: {
+    margin: '3em !important',
+  },
 }));
 
 const Footer = () => {
@@ -43,14 +43,14 @@ const Footer = () => {
       <Grid container justifyContent='center' className={classes.mainContainer}>
         <Grid item className={classes.gridItem}>
           <Grid container direction='column' spacing={2}>
-            <Grid item component={Link} to="/" className={classes.link}>
+            <Grid item component={Link} to='/' className={classes.link}>
               Home
             </Grid>
           </Grid>
         </Grid>
         <Grid item className={classes.gridItem}>
           <Grid container direction='column' spacing={2}>
-            <Grid item className={classes.link} component={Link} to="/services">
+            <Grid item className={classes.link} component={Link} to='/services'>
               Services
             </Grid>
             <Grid item className={classes.link}>
@@ -66,14 +66,14 @@ const Footer = () => {
         </Grid>
         <Grid item className={classes.gridItem}>
           <Grid container direction='column' spacing={2}>
-            <Grid item className={classes.link} component={Link} to="/about">
+            <Grid item className={classes.link} component={Link} to='/about'>
               About us
             </Grid>
           </Grid>
         </Grid>
         <Grid item className={classes.gridItem}>
           <Grid container direction='column' spacing={2}>
-            <Grid item className={classes.link} component={Link} to="/contact">
+            <Grid item className={classes.link} component={Link} to='/contact'>
               Contact us
             </Grid>
           </Grid>

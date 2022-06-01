@@ -142,6 +142,7 @@ const Contact = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </Grid>
+
           <Grid item>
             <TextField
               label='Email'
