@@ -40,6 +40,8 @@ import globe from '../../assets/images/globe.svg';
 import biometrics from '../../assets/images/biometrics.svg';
 import estimateAnimation from '../../animations/estimateAnimation/data.json';
 import data from '../../assets/images/data.svg';
+import check from '../../assets/images/check.svg';
+import send from '../../assets/images/send.svg';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -50,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.common.arcOrange,
     borderRadius: '50px !important',
     marginRight: '10px !important',
+    color: '#fff !important',
+    paddingLeft: '15px !important',
+    paddingRight: '15px !important',
     '&:hover': {
       backgroundColor: theme.palette.secondary.light,
     },
@@ -326,6 +331,12 @@ const Estimate = () => {
   const [phoneHelper, setPhoneHelper] = useState('');
   const [emailHelper, setEmailHelper] = useState('');
   const [total, setTotal] = useState(0);
+  const [service, setService] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
+  const [features, setFeatures] = useState([]);
+  const [customFeatures, setCustomFeatures] = useState('');
+  const [category, setCategory] = useState('');
+  const [users, setUsers] = useState('');
 
   const defaultOptions = {
     loop: true,
@@ -395,9 +406,11 @@ const Estimate = () => {
     switch (newSelected.title) {
       case 'Custom softWare Development':
         setQuestions(softwareQuestions);
+        setService(newSelected.title);
         break;
       case 'iOS/Android App Development':
         setQuestions(softwareQuestions);
+        setService(newSelected.title);
         break;
       case 'website Development':
         setQuestions(websiteQuestions);
@@ -447,11 +460,46 @@ const Estimate = () => {
     if (questions.length > 2) {
       const userCost = questions
         .filter((question) => question.title === 'How many users do you expect?')
-        .map((question) => question.options.filter((option) => option.selected))[0][0].cost;
-      cost -= userCost;
-      cost *= userCost;
+        .map((question) => question.options.filter((option) => option.selected))[0][0];
+      setUsers(userCost.title);
+      cost -= userCost.cost;
+      cost *= userCost.cost;
     }
     setTotal(cost);
+  };
+
+  const getPlatforms = () => {
+    let newPlatforms = [];
+    if (questions.length > 2) {
+      newPlatforms = questions
+        .filter((question) => question.title === 'Which platforms do you need supported?')
+        .map((question) => question.options.filter((option) => option.selected))[0]
+        .map((option) => newPlatforms.push(option.title));
+      setPlatforms(newPlatforms);
+    }
+  };
+
+  const getFeatures = () => {
+    let newFeatures = [];
+    if (questions.length > 2) {
+      newFeatures = questions
+        .filter((question) => question.title === 'Which features do you expect to use?')
+        .map((question) => question.options.filter((option) => option.selected))
+        .map((option) => option.map((newFeature) => newFeatures.push(newFeature.title)));
+      setPlatforms(newFeatures);
+    }
+  };
+
+  const getCustomFeatures = () => {
+    if (questions.length > 2) {
+      const newCustomFeatures = questions
+        .filter(
+          (question) => question.title === 'What type of custom features do you expect to need?',
+        )
+        .map((question) => question.options.filter((option) => option.selected))[0][0].title;
+
+      setCustomFeatures(newCustomFeatures);
+    }
   };
 
   return (
@@ -573,6 +621,9 @@ const Estimate = () => {
                 onClick={() => {
                   setDialogOpen(true);
                   getTotal();
+                  getPlatforms();
+                  getFeatures();
+                  getCustomFeatures();
                 }}
               >
                 Free estimate
@@ -648,6 +699,81 @@ const Estimate = () => {
                   incididunt ut labore et dolore magna aliqua.
                 </Typography>
               </Grid>
+            </Grid>
+            <Grid item container direction='column'>
+              <Grid item>
+                <Grid container direction='column'>
+                  <Grid container alignItems='center'>
+                    <Grid item>
+                      <img src={check} alt='' />
+                    </Grid>
+                    <Grid>
+                      <Typography variant='body1'>
+                        You want {service}{' '}
+                        {platforms.length > 0
+                          ? `for ${
+                              platforms.indexOf('Web Application') > -1 && platforms.length === 1
+                                ? 'a Web Application.'
+                                : platforms.indexOf('Web Application') > -1 &&
+                                  platforms.length === 2
+                                ? `a Web Application and an ${platforms[1]}.`
+                                : platforms.length === 1
+                                ? `an ${platforms[0]}`
+                                : platforms.length === 2
+                                ? 'an iOS Application and an Android Application.'
+                                : platforms.length === 3
+                                ? 'a Web Application, an iOS Application, and an Android Application.'
+                                : null
+                            }`
+                          : null}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container alignItems='center'>
+                    <Grid item>
+                      <img src={check} alt='' />
+                    </Grid>
+                    <Grid>
+                      <Typography variant='body1'>
+                        {'with '}
+
+                        {features.length > 0
+                          ? features.length === 1
+                            ? `${features[0]}.`
+                            : features.length === 2
+                            ? `${features[0]} and ${features[1]}.`
+                            : features
+
+                                .filter((feature, index) => index !== features.length - 1)
+
+                                .map((feature, index) => (
+                                  <span key={feature.id}>{`${feature}, `}</span>
+                                ))
+                          : null}
+                        {features.length > 0 && features.length !== 1 && features.length !== 2
+                          ? ` and ${features[features.length - 1]}.`
+                          : null}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container alignItems='center'>
+                    <Grid item>
+                      <img src={check} alt='' />
+                    </Grid>
+                    <Grid>
+                      <Typography variant='body1'>
+                        The custom features will be of {customFeatures.toLowerCase()}
+                        {`. and the project will be used by about ${users} users.`}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Button className={classes.estimateButton}>
+                Request <img src={send} alt='' style={{ marginLeft: '5px' }} />
+              </Button>
             </Grid>
           </Grid>
         </DialogContent>
