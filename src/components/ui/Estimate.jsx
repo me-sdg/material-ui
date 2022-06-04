@@ -519,6 +519,7 @@ const Estimate = () => {
           </Grid>
           <Grid
             item
+            container
             direction='column'
             md={12}
             lg={6}
@@ -605,29 +606,20 @@ const Estimate = () => {
               </Grid>
               <Grid item mt={5}>
                 <Button
-                  component={Link}
-                  to='/estimate'
-                  color='secondary'
+                  className={classes.estimateButton}
+                  style={{ marginRight: '0 !important', marginTop: '15px' }}
                   variant='contained'
-                  className={classes.btn}
+                  onClick={() => {
+                    setDialogOpen(true);
+                    getTotal();
+                    getPlatforms();
+                    getFeatures();
+                    getCustomFeatures();
+                  }}
                 >
-                  Free estimate
+                  Get estimate
                 </Button>
               </Grid>
-              <Button
-                className={classes.estimateButton}
-                style={{ marginRight: '0 !important', marginTop: '15px' }}
-                variant='contained'
-                onClick={() => {
-                  setDialogOpen(true);
-                  getTotal();
-                  getPlatforms();
-                  getFeatures();
-                  getCustomFeatures();
-                }}
-              >
-                Free estimate
-              </Button>
             </Grid>
           </Grid>
         </Grid>

@@ -62,6 +62,10 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     marginRight: '25px',
   },
+  link:{
+      color:'#fff !important'
+  },
+
   linkItem: {
     ...theme.typography.tab,
     color: '#fff !important',
@@ -131,9 +135,21 @@ export default function Header() {
 
   const menuOptions = [
     { id: 0, name: 'services', link: '/services', activeIndex: 1, selectedIndex: 0 },
-    { id: 1, name: 'Custom Software', link: '/customSoftware', activeIndex: 1, selectedIndex: 1 },
-    { id: 2, name: 'sub menu 2', link: '/submenu2', activeIndex: 1, selectedIndex: 2 },
-    { id: 3, name: 'sub menu 3', link: '/submenu3', activeIndex: 1, selectedIndex: 3 },
+    {
+      id: 1,
+      name: 'Custom software development',
+      link: '/customSoftware',
+      activeIndex: 1,
+      selectedIndex: 1,
+    },
+    {
+      id: 2,
+      name: 'ios/ Android App development',
+      link: '/services',
+      activeIndex: 1,
+      selectedIndex: 2,
+    },
+    { id: 3, name: 'Website Development', link: '/services', activeIndex: 1, selectedIndex: 3 },
   ];
 
   const routes = [
@@ -262,14 +278,13 @@ export default function Header() {
               to={route.link}
               selected={value === route.activeIndex}
               classes={{ selected: classes.drawerItemSelected }}
+              className={classes.link}
               onClick={() => {
                 setOpenDrawer(false);
                 setValue(route.activeIndex);
               }}
             >
-              <ListItemText className={classes.drawerItem} disableTypography>
-                {route.name}
-              </ListItemText>
+              <ListItemText className={classes.drawerItem}>{route.name}</ListItemText>
             </ListItem>
           ))}
 
@@ -289,7 +304,11 @@ export default function Header() {
           </ListItem>
         </List>
       </SwipeableDrawer>
-      <IconButton onClick={() => setOpenDrawer(!openDrawer)} disableRipple>
+      <IconButton
+        onClick={() => setOpenDrawer(!openDrawer)}
+        disableRipple
+        style={{ marginLeft: 'auto' }}
+      >
         <MenuIcon />
       </IconButton>
     </>

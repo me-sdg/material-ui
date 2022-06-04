@@ -3,7 +3,7 @@ import { makeStyles, useTheme } from '@mui/styles';
 import Grid from '@mui/material/Grid';
 import { Button, Typography, Card, CardContent } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Lottie from 'react-lottie';
 import CallToAction from './ui/CallToAction';
 import animationData from '../animations/landinganimation/data';
@@ -146,7 +146,7 @@ const LandingPage = () => {
           justifyContent={matchesSM ? 'center' : undefined}
         >
           <Grid item>
-            <Typography variant='h4'>Services 1</Typography>
+            <Typography variant='h4'>Custom software development</Typography>
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>
@@ -178,7 +178,7 @@ const LandingPage = () => {
           justifyContent={matchesSM ? 'center' : 'flex-end'}
         >
           <Grid item>
-            <Typography variant='h4'>Services 2</Typography>
+            <Typography variant='h4'>ios/ Android App development</Typography>
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>
@@ -210,7 +210,7 @@ const LandingPage = () => {
           justifyContent={matchesSM ? 'center' : undefined}
         >
           <Grid item>
-            <Typography variant='h4'>Services 3</Typography>
+            <Typography variant='h4'>Website Development</Typography>
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>
@@ -284,9 +284,11 @@ const LandingPage = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   <br /> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </Typography>
-                <Grid item>
+                <Grid item mt={2}>
                   <Button
                     variant='outlined'
+                    component={Link}
+                    to='/about'
                     className={classes.learnMoreBtn}
                     style={{ borderColor: '#fff', color: '#fff' }}
                   >
@@ -312,9 +314,11 @@ const LandingPage = () => {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   <br /> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </Typography>
-                <Grid item>
+                <Grid item mt={2}>
                   <Button
                     variant='outlined'
+                    component={Link}
+                    to='/contact'
                     className={classes.learnMoreBtn}
                     style={{ borderColor: '#fff', color: '#fff' }}
                   >

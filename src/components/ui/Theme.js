@@ -47,9 +47,6 @@ export default createTheme({
     subtitle2: {
       color: '#fff',
     },
-    body1: {
-      color: '#666',
-    },
     darkBlue: {
       color: `${darkBlue}`,
     },

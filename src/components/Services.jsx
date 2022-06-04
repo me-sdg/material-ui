@@ -75,7 +75,7 @@ const Services = (props) => {
               width: matchesSM ? undefined : '35em',
             }}
           >
-            <Typography variant='h4'>Services 2</Typography>
+            <Typography variant='h4'>Custom software development</Typography>
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>
@@ -114,7 +114,7 @@ const Services = (props) => {
               width: matchesSM ? undefined : '35em',
             }}
           >
-            <Typography variant='h4'>Services 1</Typography>
+            <Typography variant='h4'>ios/ Android App development</Typography>
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>
@@ -154,7 +154,7 @@ const Services = (props) => {
               width: matchesSM ? undefined : '35em',
             }}
           >
-            <Typography variant='h4'>Services 3</Typography>
+            <Typography variant='h4'>Website Development</Typography>
             <Typography variant='subtitle1' className={classes.subtitle1}>
               caption description , caption description
             </Typography>

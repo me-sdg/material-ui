@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   estimateButton: {
     marginRight: '5em !important',
     marginLeft: '2em !important',
+    fontWeight: '600',
     [theme.breakpoints.down('sm')]: {
       marginRight: '0 !important',
       marginLeft: '0 !important',
