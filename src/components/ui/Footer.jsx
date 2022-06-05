@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     backgroundColor: theme.palette.common.arcBlue,
     width: '100%',
-    zIndex: 1298,
+    zIndex: 6,
     position: 'relative',
   },
   adorment: {

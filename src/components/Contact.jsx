@@ -29,6 +29,9 @@ const useStyles = makeStyles(() => ({
     height: '60em',
     width: '100%',
   },
+  snackbar: {
+    zIndex: '99999 !important',
+  },
   multiline: {
     borderWidth: '2px !important',
     marginTop: '15px !important',
@@ -132,7 +135,7 @@ const Contact = () => {
             </Typography>
           </Grid>
         </Grid>
-        <Grid item container>
+        <Grid item container direction='column'>
           <Grid item>
             <TextField
               label='Name'
@@ -274,6 +277,7 @@ const Contact = () => {
       </Dialog>
       <Snackbar
         open={alert.open}
+        className={classes.snackbar}
         message={alert.message}
         ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
@@ -312,7 +316,7 @@ const Contact = () => {
                   width: matchesSM ? undefined : '35em',
                 }}
               >
-                <Typography variant='h4'>Services 2</Typography>
+                <Typography variant='h4'>Custom software development</Typography>
                 <Typography
                   variant='subtitle1'
                   className={classes.subtitle1}
@@ -326,7 +330,12 @@ const Contact = () => {
                   <span className={classes.specialText}>celebration</span>
                 </Typography>
                 <br />
-                <Button variant='outlined' className={classes.learnMoreBtn}>
+                <Button
+                  variant='outlined'
+                  component={Link}
+                  to='/customSoftware'
+                  className={classes.learnMoreBtn}
+                >
                   <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
                   <ButtonArrow width={20} height={20} fill='violet' />
                 </Button>

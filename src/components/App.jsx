@@ -10,6 +10,7 @@ import Services from './Services';
 import About from './About';
 import Contact from './Contact';
 import CustomSoftware from './CustomSoftware';
+import Revolution from './Revolution';
 import Estimate from './ui/Estimate';
 import '../assets/css/styles.css';
 
@@ -29,6 +30,7 @@ function App() {
           <Routes>
             <Route exact path='/' element={<LandingPage />} />
             <Route exact path='/services' element={<Services />} />
+            <Route exact path='/revolution' element={<Revolution />} />
             <Route
               exact
               path='/customSoftware'
@@ -72,21 +74,6 @@ function App() {
                   selectedIndex={selectedIndex}
                 />
               }
-            />
-            <Route
-              exact
-              path='/submenu1'
-              element={<div style={{ height: '900px' }}>submenu1 content</div>}
-            />
-            <Route
-              exact
-              path='/submenu2'
-              element={<div style={{ height: '900px' }}>submenu2 content</div>}
-            />
-            <Route
-              exact
-              path='/submenu3'
-              element={<div style={{ height: '900px' }}>submenu3 content</div>}
             />
           </Routes>
         </div>

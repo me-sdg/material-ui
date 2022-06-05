@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     marginRight: '25px',
   },
-  link:{
-      color:'#fff !important'
+  link: {
+    color: '#fff !important',
   },
 
   linkItem: {
@@ -163,8 +163,14 @@ export default function Header() {
       ariaPopup: anchorEl ? 'true' : undefined,
       mouseOver: (event) => handleClick(event),
     },
-    { id: 2, name: 'About us', link: '/about', activeIndex: 2 },
-    { id: 3, name: 'Contact us', link: '/contact', activeIndex: 3 },
+    {
+      id: 2,
+      name: 'The Revolution',
+      link: '/revolution',
+      activeIndex: 2,
+    },
+    { id: 3, name: 'About us', link: '/about', activeIndex: 3 },
+    { id: 4, name: 'Contact us', link: '/contact', activeIndex: 4 },
   ];
 
   const handleMenuItemClick = (e, i) => {

@@ -39,8 +39,8 @@ const About = () => {
         </Typography>
       </Grid>
       <Grid item container className={classes.rowContainer} justifyContent='space-around' my={10}>
-        <Grid item>
-          <Grid item container direction='column' lg style={{ maxWidth: '35em' }}>
+        <Grid item lg>
+          <Grid item container direction='column' style={{ maxWidth: '35em' }}>
             <Grid item>
               <Typography variant='h4' gutterBottom>
                 History
@@ -74,8 +74,8 @@ const About = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item>
-          <Grid item container justifyContent='center' lg>
+        <Grid item lg>
+          <Grid item container justifyContent='center'>
             <img src={history} alt='' style={{ maxHeight: '22em', maxWidth: '100%' }} />
           </Grid>
         </Grid>

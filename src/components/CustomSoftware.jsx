@@ -90,7 +90,7 @@ const CustomSoftware = ({ setSelectedIndex, setValue }) => {
           <IconButton
             style={{ backgroundColor: 'transparent' }}
             component={Link}
-            to='/about'
+            to='/revolution'
             onClick={() => setValue(2)}
           >
             <img src={forwardArrow} alt='' />

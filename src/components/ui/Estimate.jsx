@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     width: '12em',
     height: '10em',
   },
+  modal: {
+    zIndex: '9999 !important',
+  },
   estimateButton: {
     backgroundColor: theme.palette.common.arcOrange,
     borderRadius: '50px !important',
@@ -624,17 +627,17 @@ const Estimate = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-        <Grid container justifyContent='center'>
-          <Grid item>
-            <Typography variant='h2' justifyContent='center'>
-              Estimate
-            </Typography>
-          </Grid>
-        </Grid>
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className={classes.modal}>
         <DialogContent>
+          <Grid container justifyContent='center'>
+            <Grid item>
+              <Typography variant='h2' justifyContent='center'>
+                Estimate
+              </Typography>
+            </Grid>
+          </Grid>
           <Grid container>
-            <Grid item container direction='column'>
+            <Grid item container direction='column' lg={7}>
               <Grid item>
                 <TextField
                   label='Name'
@@ -669,7 +672,7 @@ const Estimate = () => {
                 />
               </Grid>
 
-              <Grid item>
+              <Grid item mt={2}>
                 <TextField
                   value={message}
                   multiline
@@ -692,12 +695,13 @@ const Estimate = () => {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid item container direction='column'>
+
+            <Grid item container direction='column' lg>
               <Grid item>
                 <Grid container direction='column'>
                   <Grid container alignItems='center'>
-                    <Grid item>
-                      <img src={check} alt='' />
+                    <Grid item mr={1}>
+                      <img src={check} alt='' width='20' />
                     </Grid>
                     <Grid>
                       <Typography variant='body1'>
@@ -722,8 +726,8 @@ const Estimate = () => {
                     </Grid>
                   </Grid>
                   <Grid container alignItems='center'>
-                    <Grid item>
-                      <img src={check} alt='' />
+                    <Grid item mr={1}>
+                      <img src={check} alt='' width='20' />
                     </Grid>
                     <Grid>
                       <Typography variant='body1'>
@@ -749,8 +753,8 @@ const Estimate = () => {
                     </Grid>
                   </Grid>
                   <Grid container alignItems='center'>
-                    <Grid item>
-                      <img src={check} alt='' />
+                    <Grid item mr={1}>
+                      <img src={check} alt='' width='20' />
                     </Grid>
                     <Grid>
                       <Typography variant='body1'>
@@ -761,11 +765,11 @@ const Estimate = () => {
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <Grid item>
-              <Button className={classes.estimateButton}>
-                Request <img src={send} alt='' style={{ marginLeft: '5px' }} />
-              </Button>
+              <Grid item mt={2}>
+                <Button className={classes.estimateButton}>
+                  Request <img src={send} alt='' style={{ marginLeft: '5px' }} />
+                </Button>
+              </Grid>
             </Grid>
           </Grid>
         </DialogContent>
