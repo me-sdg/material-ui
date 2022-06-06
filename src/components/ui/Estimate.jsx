@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Lottie from 'react-lottie';
 import { makeStyles, useTheme } from '@mui/styles';
 import { cloneDeep } from 'lodash';
+import axios from 'axios';
 import {
   IconButton,
   Typography,
@@ -11,6 +12,8 @@ import {
   Dialog,
   DialogContent,
   TextField,
+  CircularProgress,
+  Snackbar,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { blue } from '@mui/material/colors';
@@ -47,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     width: '12em',
     height: '10em',
+  },
+  snackbar: {
+    zIndex: '99999 !important',
   },
   modal: {
     zIndex: '9999 !important',
@@ -340,6 +346,8 @@ const Estimate = () => {
   const [customFeatures, setCustomFeatures] = useState('');
   const [category, setCategory] = useState('');
   const [users, setUsers] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState({ open: false, message: '', backgroundColor: '' });
 
   const defaultOptions = {
     loop: true,
@@ -503,6 +511,21 @@ const Estimate = () => {
 
       setCustomFeatures(newCustomFeatures);
     }
+  };
+
+  const sendEstimate = () => {
+    setLoading(true);
+    axios
+      .get('https://jsonplaceholder.typicode.com/posts')
+      .then((res) => {
+        setLoading(false);
+        setDialogOpen(false);
+        setAlert({ open: true, message: ' Message sent successfuly!', backgroundColor: 'green' });
+      })
+      .catch((err) => {
+        setLoading(false);
+        setAlert({ open: true, message: 'Error!!!!', backgroundColor: 'red' });
+      });
   };
 
   return (
@@ -766,14 +789,27 @@ const Estimate = () => {
                 </Grid>
               </Grid>
               <Grid item mt={2}>
-                <Button className={classes.estimateButton}>
-                  Request <img src={send} alt='' style={{ marginLeft: '5px' }} />
+                <Button className={classes.estimateButton} onClick={sendEstimate}>
+                  {loading ? (
+                    <CircularProgress size={20} color='secondary' />
+                  ) : (
+                    <span>Send Request</span>
+                  )}
                 </Button>
               </Grid>
             </Grid>
           </Grid>
         </DialogContent>
       </Dialog>
+      <Snackbar
+        open={alert.open}
+        className={classes.snackbar}
+        message={alert.message}
+        ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        onClose={() => setAlert({ ...alert, open: false })}
+        autoHideDuration={4000}
+      />
     </Grid>
   );
 };
