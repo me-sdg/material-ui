@@ -281,7 +281,7 @@ const Contact = () => {
         message={alert.message}
         ContentProps={{ style: { backgroundColor: alert.backgroundColor } }}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        setClose={() => setAlert({ ...alert, open: false })}
+        onClose={() => setAlert({ ...alert, open: false })}
         autoHideDuration={4000}
       />
 
