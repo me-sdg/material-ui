@@ -14,23 +14,59 @@ import documentsAnimatioin from '../animations/documentsAnimation/data';
 import scaleAnimatioin from '../animations/scaleAnimation/data.json';
 
 const useStyles = makeStyles((theme) => ({
-  headeing: {
+  heading: {
     maxWidth: '40em',
   },
-  arrowContainer: {
-    marginTop: '.5em',
-  },
-  mainContiner: {
+  mainContainer: {
     paddingLeft: '5em',
     paddingRight: '5em',
     paddingTop: '2em',
-    paddingBottom: '10em',
+    paddingBottom: '5em',
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: '1.5em',
+      paddingRight: '1.5em',
+    },
+  },
+  arrowContainer: {
+    position: 'relative',
+    '& .leftArrow': {
+      backgroundColor: 'red !important',
+    },
+    [theme.breakpoints.down('md')]: {
+      position: 'absolute',
+    },
+  },
+  leftArrow: {
+    [theme.breakpoints.down('md')]: {
+      left: '15px',
+      '& img': {
+        width: '16px',
+      },
+    },
+  },
+  rightArrow: {
+    [theme.breakpoints.down('md')]: {
+      right: '15px',
+      '& img': {
+        width: '16px',
+      },
+    },
+  },
+  rowContainer: {
+    paddingLeft: '5em',
+    paddingRight: '5em',
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: '1.5em',
+      paddingRight: '1.5em',
+    },
   },
 }));
 
 const CustomSoftware = ({ setSelectedIndex, setValue }) => {
   const classes = useStyles();
-
+  const theme = useTheme();
+  // const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
   const documentsOptions = {
     loop: true,
     autoplay: true,
@@ -50,23 +86,9 @@ const CustomSoftware = ({ setSelectedIndex, setValue }) => {
   };
 
   return (
-    <Grid container direction='column' className={classes.mainContiner}>
+    <Grid container direction='column' className={classes.mainContainer}>
       <Grid container item direction='row'>
-        <Grid
-          item
-          className={classes.arrowContainer}
-          style={{ marginRight: '1em', marginLeft: '-3.5em' }}
-        >
-          <IconButton
-            style={{ backgroundColor: 'transparent' }}
-            component={Link}
-            to='/services'
-            onClick={() => setSelectedIndex(2)}
-          >
-            <img src={backArrow} alt='' />
-          </IconButton>
-        </Grid>
-        <Grid container item direction='column' className={classes.headeing}>
+        <Grid container item direction='column' className={classes.heading}>
           <Grid item>
             <Typography variant='h2'>Custom software development</Typography>
           </Grid>
@@ -90,7 +112,7 @@ const CustomSoftware = ({ setSelectedIndex, setValue }) => {
           <IconButton
             style={{ backgroundColor: 'transparent' }}
             component={Link}
-            to='/revolution'
+            to='/applications'
             onClick={() => setValue(2)}
           >
             <img src={forwardArrow} alt='' />

@@ -188,7 +188,12 @@ const LandingPage = () => {
               <span className={classes.specialText}>celebration</span>
             </Typography>
             <br />
-            <Button variant='outlined' className={classes.learnMoreBtn}>
+            <Button
+              variant='outlined'
+              component={Link}
+              to='/applications'
+              className={classes.learnMoreBtn}
+            >
               <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
               <ButtonArrow width={20} height={20} fill='violet' />
             </Button>
@@ -249,7 +254,7 @@ const LandingPage = () => {
                   <Typography variant='subtitle1'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   </Typography>
-                  <Button variant='outlined'>
+                  <Button variant='outlined' component={Link} to='/revolution'>
                     <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
                     <ButtonArrow width={20} height={20} fill='violet' />
                   </Button>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { useState } from 'react';
 import { ThemeProvider } from '@mui/material';
@@ -12,6 +13,9 @@ import Contact from './Contact';
 import CustomSoftware from './CustomSoftware';
 import Revolution from './Revolution';
 import Estimate from './ui/Estimate';
+import Applications from './Applications';
+import Website from './Website';
+
 import '../assets/css/styles.css';
 
 function App() {
@@ -44,6 +48,17 @@ function App() {
             />
             <Route
               exact
+              path='/website'
+              element={
+                <Website
+                  setSelecteIndex={setSelectedIndex}
+                  setValue={setValue}
+                  selectedIndex={selectedIndex}
+                />
+              }
+            />
+            <Route
+              exact
               path='/about'
               element={
                 <About
@@ -58,6 +73,17 @@ function App() {
               path='/contact'
               element={
                 <Contact
+                  setSelecteIndex={setSelectedIndex}
+                  setValue={setValue}
+                  selectedIndex={selectedIndex}
+                />
+              }
+            />
+            <Route
+              exact
+              path='/applications'
+              element={
+                <Applications
                   setSelecteIndex={setSelectedIndex}
                   setValue={setValue}
                   selectedIndex={selectedIndex}

@@ -124,7 +124,12 @@ const Services = (props) => {
               <span className={classes.specialText}>celebration</span>
             </Typography>
             <br />
-            <Button variant='outlined' className={classes.learnMoreBtn}>
+            <Button
+              variant='outlined'
+              component={Link}
+              to='/applications'
+              className={classes.learnMoreBtn}
+            >
               <span style={{ marginRight: '10px' }}>Learn more</span>{' '}
               <ButtonArrow width={20} height={20} fill='violet' />
             </Button>

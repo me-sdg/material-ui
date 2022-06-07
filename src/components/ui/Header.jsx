@@ -69,6 +69,11 @@ const useStyles = makeStyles((theme) => ({
   linkItem: {
     ...theme.typography.tab,
     color: '#fff !important',
+    [theme.breakpoints.down('lg')]: {
+      paddingRight: '5px !important',
+      paddingLeft: '5px !important',
+      minWidth: '80px !important',
+    },
   },
   navItems: {
     marginLeft: 'auto',
@@ -76,6 +81,8 @@ const useStyles = makeStyles((theme) => ({
   btn: {
     ...theme.palette.secondary,
     borderRadius: '50px !important',
+    fontSize: '12px !important',
+    marginLeft: '10px !important',
   },
   logoLink: {
     padding: '0 !important',
@@ -145,11 +152,11 @@ export default function Header() {
     {
       id: 2,
       name: 'ios/ Android App development',
-      link: '/services',
+      link: '/applications',
       activeIndex: 1,
       selectedIndex: 2,
     },
-    { id: 3, name: 'Website Development', link: '/services', activeIndex: 1, selectedIndex: 3 },
+    { id: 3, name: 'Website Development', link: '/website', activeIndex: 1, selectedIndex: 3 },
   ];
 
   const routes = [
